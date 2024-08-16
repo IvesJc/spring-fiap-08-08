@@ -1,6 +1,8 @@
 package com._2tdspr.iveschiba.gateways;
 
 import com._2tdspr.iveschiba.domains.Aluno;
+import com._2tdspr.iveschiba.gateways.request.AlunoPostRequestDTO;
+import com._2tdspr.iveschiba.gateways.response.AlunoResponseDTO;
 import com._2tdspr.iveschiba.usecases.impl.CadastrarAlunoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,26 +11,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/aluno")
+@RequestMapping("/aluno/fiap")
 public class AlunoController {
 
     @Autowired
     private CadastrarAlunoImpl cadastrarAlunoService;
 
     @PostMapping
-    public ResponseEntity<Aluno> createAluno(@RequestBody Aluno aluno){
+    public ResponseEntity<AlunoResponseDTO> createAluno(@RequestBody AlunoPostRequestDTO aluno){
         Aluno newAluno = cadastrarAlunoService.createAluno(aluno);
-        return ResponseEntity.ok(newAluno);
+
+        AlunoResponseDTO alunoResponseDTO = AlunoResponseDTO.builder().
+                primeiroNome(newAluno.getPrimeiroNome()).
+                sobrenome(newAluno.getSobrenome()).
+                documento(newAluno.getDocumento()).
+                registro(newAluno.getRegistro()).
+                build();
+
+        return ResponseEntity.ok(alunoResponseDTO);
     }
 
     @GetMapping
     public ResponseEntity<List<Aluno>> getAlunos(){
         return ResponseEntity.status(200).build();
-    }
-
-    @GetMapping("fiap/{alunoId}")
-    public ResponseEntity<String> findById(@PathVariable("alunoId") String canario){
-        return ResponseEntity.ok("Hello World aluno "+canario);
     }
 
     @PutMapping("/{id}")
@@ -41,6 +46,4 @@ public class AlunoController {
     public ResponseEntity<Aluno> deleteAluno(@PathVariable Integer id){
         return ResponseEntity.status(204).build();
     }
-
-
 }

@@ -1,11 +1,7 @@
 package com._2tdspr.iveschiba.domains;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Setter
 @Getter
@@ -13,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Aluno extends Pessoa{
 
+    private String id;
     private String rm;
     private String registro;
 
