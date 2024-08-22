@@ -3,7 +3,9 @@ package com._2tdspr.iveschiba.gateways;
 import com._2tdspr.iveschiba.domains.Aluno;
 import com._2tdspr.iveschiba.gateways.request.AlunoPostRequestDTO;
 import com._2tdspr.iveschiba.gateways.response.AlunoResponseDTO;
+import com._2tdspr.iveschiba.usecases.CadastrarAluno;
 import com._2tdspr.iveschiba.usecases.impl.CadastrarAlunoImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +14,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/aluno/fiap")
+@RequiredArgsConstructor
+// Capaz de fazer um @Autowired sem sujar o codigo com varios @Autowired
 public class AlunoController {
 
-    @Autowired
-    private CadastrarAlunoImpl cadastrarAlunoService;
+//    @Autowired
+    private final CadastrarAluno cadastrarAlunoService;
 
     @PostMapping
     public ResponseEntity<AlunoResponseDTO> createAluno(@RequestBody AlunoPostRequestDTO aluno){

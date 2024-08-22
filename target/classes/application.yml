@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:fiap
+    driverClassName: org.h2.Driver
+    username: ives
+    password: ives123
+  jpa:
+    database:
+      platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8454
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+
